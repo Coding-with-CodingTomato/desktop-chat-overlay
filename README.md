@@ -50,8 +50,14 @@ npm run build
 npm run lint
 ```
 
-### Preview with [Electron](https://www.electronjs.org/)
+### Preview with [Electron](https://www.electronjs.org/) (Build first!)
 
 ```sh
 npm run electron:start
+```
+
+### Build Windows Exec. with [Electron](https://www.electronjs.org/) (Build first!)
+
+```sh
+npm run electron:windows
 ```
