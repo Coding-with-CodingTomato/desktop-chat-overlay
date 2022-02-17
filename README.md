@@ -16,3 +16,4 @@
 - [ ] eigene badges -> fontawesome icon
 - [ ] Sub / Spender anzeigen
 - [ ] Seit wann Follower
+- [ ] Status Nachricht
