@@ -4,19 +4,23 @@
 - [x] Projekt initialisieren
 - [x] Vue + Electron installieren
 - [x] Chats anzeigen
+- [x] Farben an neues Logo anpassen
+- [x] Margin links, rechts, oben von message box entfernen
+- [x] Electron Fenster anpassen (Hintergrund entfernen, Leiste entfernen)
+- [x] Leere Nachricht wenn noch keine Nachrichten
+- [x] Nette Transitions
+- [x] Avatar anzeigen
+- [x] Follower / Nicht Follower unterscheiden -> Farbe?
 
 ## Future Todos
-- [ ] Nette Transitions
-- [ ] BTTV Emote Twitch Emotes
+- [ ] BTTV Emote Twitch Emotes (https://github.com/smilefx/tmi-emote-parse)
+- [ ] Gelöschte Nachrichten aus Array löschen
 - [ ] Badges anzeigen -> Streamer, Mods, Subs
 - [ ] MArkup? -> Bold, Italic, Underline...
-- [ ] Margin links, rechts, oben von message box entfernen
-- [ ] Avatar anzeigen
-- [ ] Follower / Nicht Follower unterscheiden -> Farbe?
 - [ ] eigene badges -> fontawesome icon
-- [ ] Sub / Spender anzeigen
-- [ ] Seit wann Follower
 - [ ] Status Nachricht
+(- [ ] Sub / Spender anzeigen)
+(- [ ] Seit wann Follower)
 
 ## Recommended IDE Setup
 
