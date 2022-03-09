@@ -33,7 +33,7 @@ const boxStyle = { backgroundColor: boxColor };
   <div :style="boxStyle" class="messageBox">
     <div class="userInfo">
       <img class="avatar" v-if="props.avatarUrl" :src="props.avatarUrl" />
-      <h3 :style="userStyle">
+      <h3 class="username" :style="userStyle">
         {{ props.username }}
       </h3>
     </div>
@@ -54,6 +54,9 @@ const boxStyle = { backgroundColor: boxColor };
   max-width: 100%;
   word-break: break-all;
 }
+.message {
+  font-size: 1.25rem;
+}
 .timeAgo {
   margin-top: 1rem;
   color: gray;
@@ -62,6 +65,9 @@ const boxStyle = { backgroundColor: boxColor };
   width: 35px;
   border-radius: 50%;
   margin-right: 0.5rem;
+}
+.username {
+  font-size: 1.25rem;
 }
 .userInfo {
   display: flex;
