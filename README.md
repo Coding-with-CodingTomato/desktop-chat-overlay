@@ -11,14 +11,17 @@
 - [x] Nette Transitions
 - [x] Avatar anzeigen
 - [x] Follower / Nicht Follower unterscheiden -> Farbe?
+- [x] MArkup? -> Bold, Italic, Underline... dompurify
+- [x] BTTV Emote Twitch Emotes
 
 ## Future Todos
-- [ ] BTTV Emote Twitch Emotes (https://github.com/smilefx/tmi-emote-parse)
-- [ ] Gelöschte Nachrichten aus Array löschen
+- [ ] Gelöschte Nachrichten aus Array löschen (tmi.js event messagedeleted, https://github.com/tmijs/docs/blob/gh-pages/_posts/v1.4.2/2019-03-03-Events.md#messagedeleted)
 - [ ] Badges anzeigen -> Streamer, Mods, Subs
-- [ ] MArkup? -> Bold, Italic, Underline...
 - [ ] eigene badges -> fontawesome icon
 - [ ] Status Nachricht
+- [ ] Hervorgehobene Nachricht hervorheben-
+- [ ] Redemptions anzeigen
+- [ ]
 (- [ ] Sub / Spender anzeigen)
 (- [ ] Seit wann Follower)
 

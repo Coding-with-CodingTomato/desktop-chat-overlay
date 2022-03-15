@@ -1,6 +1,9 @@
 <script setup>
-import { isGloballyWhitelisted } from "@vue/shared";
 import moment from "moment";
+import DOMPurify from "dompurify";
+import { onMounted, ref } from "vue";
+import { parseEmotes } from "../lib/parseEmote";
+import hackerImage from "../assets/hacker.gif";
 
 moment.locale("de");
 
@@ -13,20 +16,58 @@ const props = defineProps({
   actTime: Number,
   avatarUrl: String,
   isFollower: Boolean,
+  emotes: Object,
+  emote_only: Boolean,
 });
+
+// Emote Width
+let emoteWidthPx = 50;
+if (props.emote_only) {
+  emoteWidthPx = 90;
+}
+
+// Cleaned Message
+let cleanedMessage = DOMPurify.sanitize(props.message, {
+  ALLOWED_TAGS: [
+    "small",
+    "mark",
+    "i",
+    "b",
+    "s",
+    "u",
+    "em",
+    "h1",
+    "h2",
+    "h3",
+    "sup",
+    "sub",
+    "p",
+    "fieldset",
+    "legend",
+  ],
+  ALLOWED_ATTR: [],
+});
+if (DOMPurify.removed.length > 1)
+  cleanedMessage = `<img src='${hackerImage}' style='width: 60%; margin-left: 15%' />`;
+const parsedMessage = ref(cleanedMessage);
 
 // Username Color
 const userStyle = { color: props.usernameColor };
 
 // Box Color
-// follower && !firstMsg: #000517
-// firstMsg: #00bc26
-// !follower && !firstMsg: grau
 let boxColor = "black";
 if (props.isFollower && !props.firstMsg) boxColor = "#000517";
 if (props.firstMsg) boxColor = "#00bc26";
 
 const boxStyle = { backgroundColor: boxColor };
+
+onMounted(async () => {
+  parsedMessage.value = await parseEmotes(
+    cleanedMessage,
+    props.emotes,
+    emoteWidthPx
+  );
+});
 </script>
 
 <template>
@@ -37,7 +78,7 @@ const boxStyle = { backgroundColor: boxColor };
         {{ props.username }}
       </h3>
     </div>
-    <p class="message">{{ props.message }}</p>
+    <p class="message" v-html="parsedMessage"></p>
     <p class="timeAgo">{{ moment(props.timeSent).fromNow() }}</p>
   </div>
 </template>
@@ -53,21 +94,24 @@ const boxStyle = { backgroundColor: boxColor };
 .message {
   max-width: 100%;
   word-break: break-all;
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
 }
-.message {
-  font-size: 1.25rem;
-}
+
 .timeAgo {
-  margin-top: 1rem;
+  margin-top: 1.25rem;
   color: gray;
 }
 .avatar {
-  width: 35px;
+  width: 50px;
   border-radius: 50%;
   margin-right: 0.5rem;
 }
 .username {
-  font-size: 1.25rem;
+  font-size: 1.75rem;
 }
 .userInfo {
   display: flex;
@@ -76,6 +120,7 @@ const boxStyle = { backgroundColor: boxColor };
   align-items: center;
   margin-bottom: 1rem;
 }
+
 @keyframes newMessage {
   0% {
     translate: 101vw 0;

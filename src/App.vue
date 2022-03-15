@@ -43,8 +43,10 @@ client.on("message", async (channel, tags, message, self) => {
     timeSent: Date.now(),
     avatarUrl: userObj.avatarUrl,
     actTime: actTime,
+    emotes: tags["emotes"],
+    emote_only: tags["emote-only"] || false,
   });
-  console.log(tags, message, users.value);
+  // console.log(tags, message, users.value);
 });
 
 const requestFollowers = async () => {
@@ -83,7 +85,6 @@ setInterval(() => {
 
 onMounted(async () => {
   followers.value = await requestFollowers();
-  console.log(followers.value);
 
   followerIntervall = setInterval(async () => {
     followers.value = await requestFollowers();
@@ -116,6 +117,8 @@ onUnmounted(() => {
       :actTime="m.actTime"
       :avatarUrl="m.avatarUrl"
       :isFollower="followers.has(m.username.toLowerCase())"
+      :emotes="m.emotes"
+      :emote_only="m.emote_only"
     />
   </div>
 </template>
