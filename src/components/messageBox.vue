@@ -3,6 +3,7 @@ import moment from "moment";
 import DOMPurify from "dompurify";
 import { onMounted, ref } from "vue";
 import { parseEmotes } from "../lib/parseEmote";
+import { parseBadges } from "../lib/parseBadge";
 import hackerImage from "../assets/hacker.gif";
 
 moment.locale("de");
@@ -18,6 +19,7 @@ const props = defineProps({
   isFollower: Boolean,
   emotes: Object,
   emote_only: Boolean,
+  badges_raw: String,
 });
 
 // Emote Width
@@ -51,6 +53,9 @@ if (DOMPurify.removed.length > 1)
   cleanedMessage = `<img src='${hackerImage}' style='width: 60%; margin-left: 15%' />`;
 const parsedMessage = ref(cleanedMessage);
 
+// Badges
+const parsedBadgesHTML = ref("");
+
 // Username Color
 const userStyle = { color: props.usernameColor };
 
@@ -67,6 +72,8 @@ onMounted(async () => {
     props.emotes,
     emoteWidthPx
   );
+  if (props.badges_raw)
+    parsedBadgesHTML.value = await parseBadges(props.badges_raw);
 });
 </script>
 
@@ -74,6 +81,7 @@ onMounted(async () => {
   <div :style="boxStyle" class="messageBox">
     <div class="userInfo">
       <img class="avatar" v-if="props.avatarUrl" :src="props.avatarUrl" />
+      <div class="badges" v-html="parsedBadgesHTML"></div>
       <h3 class="username" :style="userStyle">
         {{ props.username }}
       </h3>
@@ -99,6 +107,14 @@ onMounted(async () => {
   align-items: center;
   flex-wrap: wrap;
   gap: 5px;
+}
+
+.badges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .timeAgo {

@@ -45,8 +45,17 @@ client.on("message", async (channel, tags, message, self) => {
     actTime: actTime,
     emotes: tags["emotes"],
     emote_only: tags["emote-only"] || false,
+    badges_raw: tags["badges-raw"],
   });
   // console.log(tags, message, users.value);
+  // console.log(messages.value);
+});
+
+client.on("messagedeleted", (channel, username, deletedMessage, userstate) => {
+  const deletedMessageID = userstate["target-msg-id"];
+  const oldMessages = messages.value;
+
+  messages.value = oldMessages.filter((m) => !(m.id === deletedMessageID));
 });
 
 const requestFollowers = async () => {
@@ -119,6 +128,7 @@ onUnmounted(() => {
       :isFollower="followers.has(m.username.toLowerCase())"
       :emotes="m.emotes"
       :emote_only="m.emote_only"
+      :badges_raw="m.badges_raw"
     />
   </div>
 </template>
